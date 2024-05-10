@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/kirgk25/table-fixed-scroll/issues"
   },
-  "homepage": "https://github.com/kirgk25/table-fixed-scroll#readme"
+  "homepage": "https://github.com/kirgk25/table-fixed-scroll#readme",
+  "dependencies": {
+    "jquery": "*"
+  }
 }
