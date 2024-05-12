@@ -1,6 +1,6 @@
 /**
- * Table's will be fixed at top after scroll.
- *
+ * Module to make table header adapt. It will be pinned at top after scroll.
+ * @author Kirill Goroshko <kirgk25@gmail.com> (https://github.com/kirgk25)
  */
 
 import * as $ from 'jquery';
