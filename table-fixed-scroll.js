@@ -1,6 +1,6 @@
 /**
  * Module to make table header adapt. It will be pinned at top after scroll.
- * @author Kirill Goroshko <kirgk25@gmail.com> (https://github.com/kirgk25)
+ * @author Kirill Goroshko <kirgk25@yandex.ru> (https://github.com/kirgk25)
  */
 
 import * as $ from 'jquery';
