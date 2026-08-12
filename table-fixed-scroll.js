@@ -1,78 +1,72 @@
 /**
- * Module to make table header adapt. It will be pinned at top after scroll.
+ * Module to make table header adapt. It will be pinned at the top of the page after scroll.
  * @author Kirill Goroshko <kirgk25@yandex.ru> (https://github.com/kirgk25)
  */
 
-import * as $ from 'jquery';
+let tableData = [];
 
-let table = null,
-    tables = $('.table-fixed-scroll'),
-    tableInfos = [],
-    thead = null,
-    i = 0, // index for array
-    scrollTop = null,
-    difference = null,
-    transform = null;
+function initTableData() {
+    tableData = []; // Reset tableData before adding data (to prevent duplication)
+    let tables = document.querySelectorAll('.table-fixed-scroll');
 
-function initTableInfos() {
-    tableInfos = []; // reset tableInfos before adding data (to prevent duplication)
+    for (let i = 0; i < tables.length; i++) {
+        // Collect info about table's
+        const table = tables[i];
+        const thead = table.querySelector('thead');
 
-    for (i = 0; i < tables.length; i++) {
-        //collect info about table's
-        table = $(tables[i]);
+        if (thead === null) {
+            continue;
+        }
 
-        thead = table.find('thead');
-        thead.css({
-            'background-color': 'white',
-        });
+        if (thead.style.backgroundColor === "") {
+            thead.style.backgroundColor = 'white';
+        }
 
-        tableInfos.push({
+        tableData.push({
             thead: thead,
-            tableHeight: table.height(),
-            offsetTop: table.offset().top,
+            tableHeight: table.offsetHeight,
+            offsetTop: table.getBoundingClientRect().top + window.scrollY,
         });
     }
 }
 
 function moveHeaders() {
-    scrollTop = $(window).scrollTop();
+    const scrollTop = window.scrollY;
 
-    for (i = 0; i < tableInfos.length; i++) {
-        difference = scrollTop - tableInfos[i].offsetTop - 2;
-
-        transform = (difference > 0 && scrollTop < tableInfos[i].offsetTop + tableInfos[i].tableHeight)
+    for (let i = 0; i < tableData.length; i++) {
+        const data = tableData[i];
+        const difference = scrollTop - tableData[i].offsetTop - 2;
+        const transform = (difference > 0 && scrollTop < data.offsetTop + data.tableHeight)
             ? 'translateY('+difference+'px)'
             : 'initial';
 
-        tableInfos[i].thead.css({
-            'transform': transform, // Chrome
-            '-webkit-transform': transform, // Safari
-            '-ms-transform': transform, // IE 9
-        });
+        data.thead.style.transform = transform;       // Chrome
+        data.thead.style.WebkitTransform = transform; // Safari
+        data.thead.style.MsTransform = transform;     // IE 9
     }
 }
 
 export function init() {
     (function () {
-        $(function () {
-            initTableInfos();
+        document.addEventListener('DOMContentLoaded', () => {
+            initTableData();
 
-            //scroll
-            $(window).on("scroll", function(e) {
-                //move table header's after scroll
-                moveHeaders();
+            // Move table header's after scroll
+            window.addEventListener('scroll', moveHeaders, { passive: true });
+
+            // It is for bootstrap tab. We need to reinitialize tableData after choosing tab
+            const tabs = document.querySelectorAll('a[data-toggle="tab"]');
+            tabs.forEach((tab) => {
+                tab.addEventListener('shown.bs.tab', () => {
+                    initTableData();
+                });
             });
 
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                //It is for bootstrap tab. We need to reinitialize tableInfos after choosing tab
-                initTableInfos();
-            })
-
-            // Reinitialize informations about "scrolled tables" every 3 seconds
+            // Reinitialize information about "scrolled tables" every 3 seconds
             // In some cases it is fix (when other js code change positions of dom elements)
-            // For example when using css-class form-horizontal.
+            // For example when using css-class form-horizontal
             setInterval(function(){
-                initTableInfos();
+                initTableData();
             },3000);
 
             moveHeaders(); // For cases when user refresh page or were redirected back we need to auto move header (without scroll event)
