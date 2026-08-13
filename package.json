@@ -1,7 +1,7 @@
 {
   "name": "table-fixed-scroll",
-  "version": "2.0.1",
-  "description": "Plugin to make table headers pinned to top after they were scrolled.",
+  "version": "2.0.2",
+  "description": "Plugin to make table headers pinned to the top of the page after scrolling the page.",
   "main": "table-fixed-scroll.js",
   "repository": {
     "type": "git",
@@ -13,19 +13,19 @@
     "header",
     "html",
     "css",
-    "jquery",
     "fixed thead",
     "fixed header",
-    "pinned header",
-    "pin header to top"
+    "fixed table header",
+    "pinned table header",
+    "attached table header",
+    "pin table header to the top of the page",
+    "scrollable table",
+    "attach the table header to the top of the page after scrolling the page"
   ],
   "author": "Kirill Goroshko <kirgk25@gmail.com> (https://github.com/kirgk25)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kirgk25/table-fixed-scroll/issues"
   },
-  "homepage": "https://github.com/kirgk25/table-fixed-scroll#readme",
-  "dependencies": {
-    "jquery": "*"
-  }
+  "homepage": "https://github.com/kirgk25/table-fixed-scroll#readme"
 }
