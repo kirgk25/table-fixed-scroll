@@ -44,3 +44,22 @@ Add class __table-fixed-scroll__ to table that you want to be with adapt header:
     <tbody>...</tbody>
 </table>
 ```
+
+## Keywords
+- table
+- scroll
+- header
+- html
+- css
+- fixed thead
+- sticky thead
+- fixed header
+- sticky header
+- fixed table header
+- pinned table header
+- attached table header
+- sticky table header
+- pin the table header to the top of the page
+- scrollable table
+- attach the table header to the top of the page after scrolling the page
+
